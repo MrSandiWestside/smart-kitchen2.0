@@ -63,9 +63,33 @@ class RecipesViewModel(private val repository: SmartKitchenRepository? = null) :
 
     private fun loadDummyRecipes() {
         val dummy = listOf(
-            Recipe(UUID.randomUUID().toString(), "Pasta Carbonara", "https://via.placeholder.com/300", 4.5f, "20 min", listOf("Pasta", "Egg", "Bacon")),
-            Recipe(UUID.randomUUID().toString(), "Tomato Soup", "https://via.placeholder.com/300", 4.2f, "30 min", listOf("Tomato", "Onion", "Cream")),
-            Recipe(UUID.randomUUID().toString(), "Veggie Stir Fry", "https://via.placeholder.com/300", 4.8f, "15 min", listOf("Broccoli", "Carrot", "Soy Sauce"))
+            Recipe(
+                UUID.randomUUID().toString(),
+                "Pasta Carbonara",
+                "https://via.placeholder.com/300",
+                4.5f,
+                "20 min",
+                "Cook pasta and mix with egg and bacon",
+                listOf("Pasta", "Egg", "Bacon")
+            ),
+            Recipe(
+                UUID.randomUUID().toString(),
+                "Tomato Soup",
+                "https://via.placeholder.com/300",
+                4.2f,
+                "30 min",
+                "Simmer tomatoes with onion and blend with cream",
+                listOf("Tomato", "Onion", "Cream")
+            ),
+            Recipe(
+                UUID.randomUUID().toString(),
+                "Veggie Stir Fry",
+                "https://via.placeholder.com/300",
+                4.8f,
+                "15 min",
+                "Fry vegetables quickly with soy sauce",
+                listOf("Broccoli", "Carrot", "Soy Sauce")
+            )
         )
         _recipes.value = dummy
     }

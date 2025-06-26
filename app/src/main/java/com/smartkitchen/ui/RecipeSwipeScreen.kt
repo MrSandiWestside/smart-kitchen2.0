@@ -3,6 +3,8 @@ package com.smartkitchen.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -15,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.smartkitchen.model.FavoriteRecipe
 import com.smartkitchen.model.Recipe
 import com.smartkitchen.viewmodel.IngredientsViewModel
 import com.smartkitchen.viewmodel.RecipesViewModel
@@ -63,23 +64,14 @@ fun RecipeSwipeScreen(
                 CircularProgressIndicator()
             }
         } else if (recipes.isNotEmpty()) {
-            val topRecipe = recipes[0]
-            RecipeCard(recipe = topRecipe)
-            Spacer(modifier = Modifier.height(12.dp))
-            Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Button(onClick = { viewModel.removeTopRecipe() }) {
-                    Text("Skip")
-                }
-                Button(onClick = {
-                    viewModel.saveFavorite(topRecipe)
-                    viewModel.removeTopRecipe()
-                }) {
-                    Text("Save")
-                }
+            val pagerState = rememberPagerState(pageCount = { recipes.size })
+
+            HorizontalPager(state = pagerState) { page ->
+                val recipe = recipes[page]
+                RecipeCard(recipe = recipe)
             }
+
+            Spacer(modifier = Modifier.height(12.dp))
         } else {
             // No recipes found
             Box(
@@ -118,6 +110,8 @@ fun RecipeCard(recipe: Recipe) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(recipe.title, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
             Text("⏱ ${recipe.duration} | ⭐ ${recipe.rating}", modifier = Modifier.padding(horizontal = 8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(recipe.instructions, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(horizontal = 8.dp))
         }
     }
 }

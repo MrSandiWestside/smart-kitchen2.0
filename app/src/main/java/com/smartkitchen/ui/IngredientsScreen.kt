@@ -48,6 +48,18 @@ fun IngredientsScreen(navController: NavController, viewModel: IngredientsViewMo
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = {
+                    navController.currentBackStackEntry?.savedStateHandle?.set("shouldFetchRecipes", true)
+                    navController.navigate("recipes")
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Text("Rezepte finden")
+            }
         }
 
         if (showDialog) {

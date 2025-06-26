@@ -11,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Repository that interacts with the Spoonacular API using Retrofit.
  */
 class SpoonacularRepository {
+
     private val service: SpoonacularService
     private val cache = mutableMapOf<String, List<Recipe>>()
 
