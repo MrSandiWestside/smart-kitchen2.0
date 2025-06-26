@@ -25,7 +25,6 @@ fun AddIngredientDialog(onDismiss: () -> Unit, onAdd: (Ingredient) -> Unit) {
     var quantity by remember { mutableStateOf("1") }
     var unit by remember { mutableStateOf("pieces") }
     var category by remember { mutableStateOf(Category.VEGETABLES) }
-    val units = listOf("pieces", "g", "kg", "ml", "l")
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -55,15 +54,20 @@ fun AddIngredientDialog(onDismiss: () -> Unit, onAdd: (Ingredient) -> Unit) {
             }
         },
         confirmButton = {
-            Button(onClick = {
-                onAdd(Ingredient(
-                    name = name,
-                    quantity = quantity.toIntOrNull() ?: 1,
-                    unit = unit,
-                    category = category.name
-                ))
-                onDismiss()
-            }) {
+            Button(
+                onClick = {
+                    onAdd(
+                        Ingredient(
+                            name = name,
+                            quantity = quantity.toIntOrNull() ?: 1,
+                            unit = unit,
+                            category = category.name
+                        )
+                    )
+                    onDismiss()
+                },
+                enabled = name.isNotBlank()
+            ) {
                 Text("Add Ingredient")
             }
         },
