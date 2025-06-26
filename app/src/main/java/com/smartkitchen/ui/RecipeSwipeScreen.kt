@@ -68,7 +68,10 @@ fun RecipeSwipeScreen(
 
             HorizontalPager(state = pagerState) { page ->
                 val recipe = recipes[page]
-                RecipeCard(recipe = recipe)
+                RecipeCard(recipe = recipe) {
+                    viewModel.saveFavorite(recipe)
+                    viewModel.removeTopRecipe()
+                }
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -89,7 +92,10 @@ fun RecipeSwipeScreen(
 }
 
 @Composable
-fun RecipeCard(recipe: Recipe) {
+fun RecipeCard(
+    recipe: Recipe,
+    onSaveFavorite: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -111,7 +117,20 @@ fun RecipeCard(recipe: Recipe) {
             Text(recipe.title, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
             Text("⏱ ${recipe.duration} | ⭐ ${recipe.rating}", modifier = Modifier.padding(horizontal = 8.dp))
             Spacer(modifier = Modifier.height(4.dp))
-            Text(recipe.instructions, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(horizontal = 8.dp))
+            Text(
+                recipe.instructions,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Button(onClick = onSaveFavorite) {
+                    Text("Save to Favorites")
+                }
+            }
         }
     }
 }
