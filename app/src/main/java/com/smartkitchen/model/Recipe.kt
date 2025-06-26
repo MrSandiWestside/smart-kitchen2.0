@@ -7,5 +7,6 @@ data class Recipe(
     val imageUrl: String,
     val rating: Float,
     val duration: String,
+    val instructions: String,
     val ingredients: List<String>
 )
