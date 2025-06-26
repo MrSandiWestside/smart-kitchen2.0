@@ -8,6 +8,7 @@ import com.smartkitchen.db.SmartKitchenDatabase
 import com.smartkitchen.repository.SmartKitchenRepository
 
 class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val database = Room.databaseBuilder(
@@ -15,7 +16,9 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             SmartKitchenDatabase::class.java,
             "smart_kitchen.db"
         ).build()
+
         val repository = SmartKitchenRepository(database.smartKitchenDao())
+
         return when {
             modelClass.isAssignableFrom(IngredientsViewModel::class.java) -> {
                 IngredientsViewModel(repository) as T
@@ -27,3 +30,4 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
         }
     }
 }
+
