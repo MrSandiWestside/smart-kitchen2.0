@@ -37,7 +37,7 @@ fun RecipeSwipeScreen(
 
     // Get the saved state handle to check if we should fetch recipes
     val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
-    val shouldFetchRecipes = true //savedStateHandle?.get<Boolean>("shouldFetchRecipes") ?: false
+    val shouldFetchRecipes = savedStateHandle?.get<Boolean>("shouldFetchRecipes") ?: false
 
     // Effect to fetch recipes when navigating to this screen with the flag set
     LaunchedEffect(shouldFetchRecipes) {
